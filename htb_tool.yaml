@@ -22,3 +22,17 @@ tasks:
         cmds: 
             - "ffuf -c -w {{.PATH}} -u http://{{.HOST}} -H 'Host: FUZZ.{{.HOST}}'"
         desc: "subdomain bruteforce ffuf"
+    netstat:
+        cmds:
+            - netstat -tulnp
+        desc: "netstat"
+    feroxbuster_basic:
+        vars:
+            URL: "http://example.com"
+        cmds:
+            - feroxbuster -u {{.URL}} -w /usr/share/seclists/Discovery/Web-Content/common.txt
+        desc: "feroxbuster basic"
+    kill_vpn:
+        cmds:
+            - sudo pkill openvpn
+        desc: "kill vpn"
