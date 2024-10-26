@@ -1,9 +1,6 @@
 version: '3'
 vars:
     project_name: "HTB_SUPPORT"
-    build_dir: "build"
-    src_dir: "src"
-    test_dir: "tests"
     SAVE_FOLDER: "Chemistry"
 tasks:
     default:
