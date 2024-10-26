@@ -1,20 +1,27 @@
 version: '3'
 vars:
-    project_name: "MyProject"
+    project_name: "HTB_SUPPORT"
     build_dir: "build"
     src_dir: "src"
     test_dir: "tests"
+    SAVE_FOLDER: "Chemistry"
 tasks:
     default:
         cmds:
-            - echo "this is tool for support for htb"
+            - echo "this is tool for support for htb - {{.project_name}}!"
         desc: "Default task"
     nmap_scan:
-        cmds:
-            - nmap -A -T4 -p- -oN nmap_scan_results.txt
-        desc: "Perform the best nmap scan"
-    nmap_scan_1:
         vars:
-            HOST: 127.0.0.1
+            HOST: 10.10.11.38
+            MIN_RATE: 1500
+            OUTPUT: nmap_scan_results.txt
         cmds:
-            - nmap -sVC -p- -oN nmap_scan_results.txt --min-rate 1500 {{.HOST}}
+            - nmap -sVC -v -p- -oN {{.SAVE_FOLDER}}/nmap_scan_results.txt --min-rate {{.MIN_RATE}} {{.HOST}}
+        desc: "nmap full scan"
+    subdomain_bruteforce_ffuf:
+        vars:
+            HOST: "example.com"
+            PATH: "a"
+        cmds: 
+            - "ffuf -c -w {{.PATH}} -u http://{{.HOST}} -H 'Host: FUZZ.{{.HOST}}'"
+        desc: "subdomain bruteforce ffuf"
